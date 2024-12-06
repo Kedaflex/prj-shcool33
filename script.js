@@ -1,9 +1,11 @@
-// Находим основной контент
 const mainContent = document.getElementById("main-content");
+// TODO прочитать про делегирование событий в js
+const navContainer = document.getElementById('nav-container');
 
-// Данные для каждой секции
-const sections = {
-    about: {
+// TODO импортировать из json или fetch если есть сервер 
+const sectionsData = [
+    {
+        id: "about",
         title: "Наша команда",
         content: `
             <p>Мы — группа увлечённых разработчиков, создающих современные и удобные сайты.</p>
@@ -14,7 +16,8 @@ const sections = {
             <p>Поддержка образовательных инициатив.</p>
         `
     },
-    projects: {
+    {
+        id: "projects",
         title: "Наши проекты",
         content: `
             <h3>Проект 1: Сайт школы</h3>
@@ -25,7 +28,8 @@ const sections = {
             <p>Реализован блог с интеграцией социальных сетей и возможностью оставлять комментарии.</p>
         `
     },
-    contacts: {
+    {
+        id: "contacts",
         title: "Контакты",
         content: `
             <h3>Свяжитесь с нами</h3>
@@ -37,7 +41,8 @@ const sections = {
             <p>Понедельник - Пятница: 8:00 - 18:00<br>Суббота: 8:00 - 18:00<br>Воскресенье: 8:30 - 18:00</p>
         `
     },
-    our: {
+    {
+        id: "our",
         title: "Наша команда:",
         content: `
             <p><strong>Дизайнер:</strong> Николай Лопатин.</p>
@@ -48,7 +53,8 @@ const sections = {
             <p>Занимался разработкой сайта на CSS</p>
         `
     },
-    fan: {
+    {
+        id: "fan",
         title: "Этот проект не был бы сделан без",
         content: `
             <h3>Дмитрия Игоревича Нефёдова</h3>
@@ -56,25 +62,27 @@ const sections = {
             <p>На протяжении всего ведения проекта он нам подсказывал и никогда не отказывал в помощи.</p>
             <p>Спасибо, Дмитрий Игоревич!</p>
         `
-    },
+    }
+];
+
+const renderContent = (sectionId) => {
+    const section = sectionsData.find((s) => s.id === sectionId);
+    if (section) {
+        const { title, content } = section;
+        mainContent.innerHTML = `<h2>${title}</h2>${content}`;
+    }
 };
 
+// TODO декомпозиция функций на более мелкие удобнее для чтения и поддеркжи кода
+const handleNavClick = (event) => {
+    if (event.target.tagName === 'A') {
+        event.preventDefault();
+        const sectionId = event.target.getAttribute('href').substring(1);
+        renderContent(sectionId);
+    }
+};
 
+navContainer.addEventListener('click', handleNavClick);
 
-
-
-// Функция для обновления содержимого
-function updateContent(section) {
-    const { title, content } = sections[section];
-    mainContent.innerHTML = `<h2>${title}</h2>${content}`;
-}
-
-// Добавляем обработчики событий на ссылки
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function (event) {
-        event.preventDefault(); // Отмена стандартного перехода
-        const section = this.getAttribute('href').substring(1); // Получаем идентификатор секции
-        updateContent(section); // Обновляем содержимое
-    });
-});
-
+// TODO прочитать про слушатели событий 
+const removeNavClickListener = () => navContainer.removeEventListener('click', handleNavClick);
