@@ -10,23 +10,30 @@ body {
 }
 
 h1 {
-    opacity: 0; /* Текст изначально невидим */
-  animation: fadeIn 1s ease-in-out forwards; /* Анимация появления */
+    opacity: 0;
+    /* Текст изначально невидим */
+    animation: fadeIn 1s ease-in-out forwards;
+    /* Анимация появления */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* Заголовок и навигация */
 .header {
     background: #080808;
     color: white;
     margin: 15px;
     padding: 40px;
     text-align: center;
-    position: relative; /* Необходимо для абсолютного позиционирования псевдоэлемента */
+    position: relative;
+    /* Необходимо для абсолютного позиционирования псевдоэлемента */
     overflow: hidden;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
@@ -59,8 +66,6 @@ h1 {
     margin: 1rem 0;
 }
 
-
-
 .section:nth-child(even) {
     background: rgb(0, 0, 0);
     color: white;
@@ -79,7 +84,6 @@ h2 {
     color: white;
 }
 
-/* Футер */
 .footer {
     background: #333;
     color: white;
@@ -87,5 +91,3 @@ h2 {
     padding: 1rem;
     margin-top: auto;
 }
-
-
